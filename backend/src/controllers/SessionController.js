@@ -11,5 +11,10 @@ module.exports={
         }
         
         return res.json(user)
+    },
+
+    async index(req,res){
+        const user=await User.find()
+        return res.json(user)
     }
 }
