@@ -2,16 +2,24 @@ const Spot =require('../models/Spot')
 const User=require('../models/User')
 
 module.exports={
+    async index(req,res){
+        const { tech } = req.query
+
+        const spots=await Spot.find({techs:tech})
+
+        return res.json(spots)
+    },
+
     async store(req,res){
         const { filename } = req.file
         const { company, price, techs } = req.body
         const { user_id } = req.header
 
-        const user=await User.findById(user_id)
+        // const user=await User.findById(user_id)
 
-        if(!user){
-            return res.status(400).json({error:'User not found'})
-        }
+        // if(!user){
+        //     return res.status(400).json({error:'User not found'})
+        // }
 
         const spot=await Spot.create({
             user:user_id,
@@ -22,5 +30,6 @@ module.exports={
         })
 
         return res.json(spot)
-    },
+    }
+
 }
