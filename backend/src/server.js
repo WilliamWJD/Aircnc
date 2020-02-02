@@ -17,6 +17,6 @@ app.use(routes)
 const port=process.env.PORT_SERVER
 
 app.listen(port,()=>{
-    console.log('Sservidor online')
+    console.log('Servidor online')
 })
 
