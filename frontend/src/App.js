@@ -15,9 +15,9 @@ function App() {
       email
     })
 
-    const {_id} = response.data
+    const { _id } = response.data
 
-    console.log(_id)
+    localStorage.setItem('user',_id)
   }
 
   return (
