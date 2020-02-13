@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { withNavigation } from 'react-navigation'
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
 
 import api from '../services/api'
 
-export default function SpotList({ tech }) {
+function SpotList({ tech, navigation }) {
     const [spots, setSpots] = useState([])
 
     useEffect(() => {
@@ -17,6 +18,10 @@ export default function SpotList({ tech }) {
         loadSpots()
     }, [])
 
+    function handleNavigate(id) {
+        navigation.navigate('Book', {id})
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Empresas que usam <Text style={styles.bold}>{tech}</Text></Text>
@@ -28,10 +33,10 @@ export default function SpotList({ tech }) {
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <View style={styles.listItem}>
-                        <Image style={styles.thumbnail} source={{ uri: item.thumbnail_url.replace("http://localhost:3333","http://192.168.0.102:3333") }} />
+                        <Image style={styles.thumbnail} source={{ uri: item.thumbnail_url.replace("http://localhost:3333", "http://192.168.0.102:3333") }} />
                         <Text style={styles.company}>{item.company}</Text>
                         <Text style={styles.price}>{item.price ? `R$: ${item.price}/dia` : `GRATUITO`}</Text>
-                        <TouchableOpacity onPress={()=>{}} style={styles.button}>
+                        <TouchableOpacity onPress={()=>handleNavigate(item._id)} style={styles.button}>
                             <Text style={styles.buttonText}>Solicitar reserva</Text>
                         </TouchableOpacity>
                     </View>
@@ -57,46 +62,48 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-    list:{
-        paddingHorizontal:20,
+    list: {
+        paddingHorizontal: 20,
     },
 
-    listItem:{
-        marginRight:15
+    listItem: {
+        marginRight: 15
     },
 
-    thumbnail:{
-        width:200,
-        height:120,
-        resizeMode:'cover',
-        borderRadius:2
+    thumbnail: {
+        width: 200,
+        height: 120,
+        resizeMode: 'cover',
+        borderRadius: 2
     },
 
-    company:{
-        fontSize:22,
-        fontWeight:'bold',
-        color:'#333',
-        marginTop:10,
+    company: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#333',
+        marginTop: 10,
     },
 
-    price:{
-        fontSize:15,
-        color:'#999',
-        marginTop:5,
+    price: {
+        fontSize: 15,
+        color: '#999',
+        marginTop: 5,
     },
 
-    button:{
-        height:32,
-        backgroundColor:'#f05a5b',
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius:2,
-        marginTop:15
+    button: {
+        height: 32,
+        backgroundColor: '#f05a5b',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 2,
+        marginTop: 15
     },
 
-    buttonText:{
-        color:'#fff',
-        fontWeight:'bold',
-        fontSize:15
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 15
     }
 })
+
+export default withNavigation(SpotList) 
