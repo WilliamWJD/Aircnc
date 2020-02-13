@@ -7,8 +7,8 @@ import List from './pages/List'
 const Routes=createAppContainer(
     createSwitchNavigator({
         Login,
-        Book,
-        List
+        List,
+        Book
     })
 )
 
