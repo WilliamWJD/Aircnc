@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import { View, Text, AsyncStorage, Image, StyleSheet } from 'react-native'
+import { View, ScrollView, AsyncStorage, Image, StyleSheet } from 'react-native'
 
 import SpotList from '../components/SpotList'
 
@@ -19,7 +19,9 @@ export default function List(){
     return(
         <View style={styles.container}>
             <Image style={styles.logo} source={Logo}/>
-            {techs.map(tech=><SpotList key={tech} tech={tech}/>)}
+            <ScrollView style={styles.scrollTechs}>
+                {techs.map(tech=><SpotList key={tech} tech={tech}/>)}
+            </ScrollView>
         </View>
     )
 }
@@ -34,6 +36,10 @@ const styles=StyleSheet.create({
         height:35,
         resizeMode:'contain',
         alignSelf:'center',
+        marginTop:10
+    },
+
+    scrollTechs:{
         marginTop:10
     }
 })
